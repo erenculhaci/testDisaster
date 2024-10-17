@@ -1,26 +1,26 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// Create a slice for the nodes
 const nodeSlice = createSlice({
     name: 'nodes',
     initialState: [],
     reducers: {
+        setNodes: (state, action) => {
+            return action.payload; // Set the nodes from the database
+        },
         addNode: (state, action) => {
-            state.push(action.payload); // Adds the new node to the array
+            state.push(action.payload); // Add a node
         },
         deleteNode: (state, action) => {
-            return state.filter((node) => node !== action.payload); // Removes the node from the array
+            return state.filter((node) => node.id !== action.payload); // Delete node by id
         },
     },
 });
 
-// Export the actions
-export const { addNode, deleteNode } = nodeSlice.actions;
+export const { setNodes, addNode, deleteNode } = nodeSlice.actions;
 
-// Create the store
 const store = configureStore({
     reducer: {
-        nodes: nodeSlice.reducer, // Register the node slice reducer
+        nodes: nodeSlice.reducer,
     },
 });
 
